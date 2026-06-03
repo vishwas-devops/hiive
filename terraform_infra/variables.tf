@@ -54,3 +54,27 @@ variable "node_max_size" {
   type    = number
   default = 3
 }
+
+variable "app_name" {
+  type        = string
+  default     = "hello-world"
+  description = "Application name"
+}
+
+variable "app_namespace" {
+  type        = string
+  default     = "hiive"
+  description = "Kubernetes namespace for the app"
+}
+
+variable "app_replicas" {
+  type        = number
+  default     = 2
+  description = "Number of app replicas"
+}
+
+variable "app_image_tag" {
+  type        = string
+  default     = "latest"
+  description = "Application image tag"
+}
