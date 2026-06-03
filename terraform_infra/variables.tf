@@ -27,3 +27,30 @@ variable "availability_zones" {
   type        = list(string)
   description = "Availability zones for private subnets"
 }
+
+variable "cluster_version" {
+  type        = string
+  description = "Kubernetes version for EKS"
+  default     = "1.30"
+}
+
+variable "node_instance_types" {
+  type        = list(string)
+  description = "EC2 instance types for EKS nodes"
+  default     = ["t3.medium"]
+}
+
+variable "node_desired_size" {
+  type        = number
+  default     = 2
+}
+
+variable "node_min_size" {
+  type    = number
+  default = 2
+}
+
+variable "node_max_size" {
+  type    = number
+  default = 3
+}
