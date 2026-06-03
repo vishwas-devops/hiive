@@ -71,3 +71,20 @@ module "observability" {
     module.eks
   ]
 }
+
+# EC2 Instnace Creation
+
+module "workstation" {
+  source = "./modules/workstation"
+
+  name              = local.name
+  vpc_id            = module.vpc.vpc_id
+  vpc_cidr          = module.vpc.vpc_cidr
+  private_subnet_id = module.vpc.private_subnet_ids[0]
+  instance_type     = "t3.micro"
+  tags              = local.tags
+
+  depends_on = [
+    module.networking
+  ]
+}
