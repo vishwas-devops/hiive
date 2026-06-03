@@ -25,3 +25,10 @@ output "app_service_name" {
 output "application_log_group_name" {
   value = module.observability.application_log_group_name
 }
+output "workstation_instance_id" {
+  value = module.workstation.instance_id
+}
+
+output "workstation_private_ip" {
+  value = module.workstation.private_ip
+}
