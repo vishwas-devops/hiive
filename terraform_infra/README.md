@@ -32,7 +32,11 @@ Private VPC
 │   ├── ECR Docker
 │   ├── S3
 │   ├── STS
+│   ├── SSM
+│   ├── SSM Messages
+│   ├── EC2 Messages
 │   └── CloudWatch Logs
+├── Private EC2 Workstation
 ├── Private ECR Repository
 ├── Private EKS Cluster
 │   └── Managed Node Group
