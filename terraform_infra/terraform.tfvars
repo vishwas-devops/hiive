@@ -22,3 +22,8 @@ node_instance_types = ["t3.medium"]
 node_desired_size = 2
 node_min_size     = 2
 node_max_size     = 3
+
+app_name      = "hello-world"
+app_namespace = "hiive"
+app_replicas  = 2
+app_image_tag = "latest"
