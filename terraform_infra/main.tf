@@ -1,3 +1,4 @@
+# VPC Creation
 
 module "networking" {
   source = "./modules/networking"
@@ -7,4 +8,14 @@ module "networking" {
   private_subnet_cidrs = var.private_subnet_cidrs
   availability_zones   = var.availability_zones
   tags                 = local.tags
+}
+
+
+# ECR Creation
+
+module "ecr" {
+  source = "./modules/ecr"
+
+  name = local.name
+  tags = local.tags
 }
