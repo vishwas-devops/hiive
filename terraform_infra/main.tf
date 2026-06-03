@@ -1,7 +1,7 @@
 # VPC Creation
 
-module "networking" {
-  source = "./modules/networking"
+module "vpc" {
+  source = "./modules/vpc"
 
   name                 = local.name
   vpc_cidr             = var.vpc_cidr
@@ -18,4 +18,26 @@ module "ecr" {
 
   name = local.name
   tags = local.tags
+}
+
+# EKS Creating
+
+module "eks" {
+  source = "./modules/eks"
+
+  name               = local.name
+  vpc_id             = module.vpc.vpc_id
+  private_subnet_ids = module.vpc.private_subnet_ids
+
+  cluster_version     = var.cluster_version
+  node_instance_types = var.node_instance_types
+  node_desired_size   = var.node_desired_size
+  node_min_size       = var.node_min_size
+  node_max_size       = var.node_max_size
+
+  tags = local.tags
+
+  depends_on = [
+    module.vpc
+  ]
 }
