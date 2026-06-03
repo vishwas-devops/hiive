@@ -27,3 +27,5 @@ app_name      = "hello-world"
 app_namespace = "hiive"
 app_replicas  = 2
 app_image_tag = "latest"
+
+log_retention_days = 14
