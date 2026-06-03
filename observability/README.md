@@ -121,3 +121,73 @@ export DD_APP_KEY="your-app-key"
 terraform init
 terraform plan -var="aws_account_id=123456789012"
 terraform apply -var="aws_account_id=123456789012"
+
+## **What I Would Do Differently in Real Production**
+
+For an actual production environment, I would improve this setup and add below configurations:
+
+1. Store Datadog Keys in Vault
+
+Instead, I would store them in HashiCorp Vault or AWS Secrets Manager.
+
+Example:
+
+secret/datadog/api_key
+secret/datadog/app_key
+
+Terraform or CI/CD would retrieve them securely at runtime.
+
+2. Use Remote Terraform State
+
+I would store Terraform state in S3 or use Terraform Enterprise.
+
+This prevents local state loss and avoids multiple engineers applying changes at the same time.
+
+3. Use CI/CD for Terraform
+
+Terraform would run through GitHub Actions or GitLab CI/CD.
+
+Production changes would require:
+
+Pull request review
+Terraform plan approval
+Manual approval before apply
+
+4. Use Separate Environments
+
+I would separate environments like:
+
+dev
+staging
+production
+
+Each environment would have separate variables, tags, alert thresholds, and notification channels.
+
+5. Add Datadog Monitors as Code
+
+In production, I would also manage all Datadog monitors through Terraform.
+
+6. Add Datadog Agent in EKS
+
+This AWS integration collects AWS-level metrics, but for deep Kubernetes visibility, I would also install the Datadog Agent (as a sidecar of daemon set) in EKS.
+
+That would provide pod, container, deployment, node, and cluster-level observability.
+
+7. Add SLO Dashboards
+
+I would create Datadog dashboards for:
+
+API reliability
+EKS cluster health
+Infrastructure health
+Database health
+Incident response view
+Executive SLO view
+
+8. Add Incident Routing
+
+Critical alerts would go to PagerDuty
+
+Lower-severity alerts would go to Slack or email.
+
+9. I would also create helm for each microservices and put all the configuration there.
