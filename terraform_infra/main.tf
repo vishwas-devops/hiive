@@ -41,3 +41,19 @@ module "eks" {
     module.vpc
   ]
 }
+
+# App creation
+
+module "app" {
+  source = "./modules/app"
+
+  namespace = var.app_namespace
+  app_name  = var.app_name
+  image_uri = "${module.ecr.repository_url}:${var.app_image_tag}"
+  replicas  = var.app_replicas
+
+  depends_on = [
+    module.eks,
+    module.ecr
+  ]
+}
