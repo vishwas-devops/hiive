@@ -1,48 +1,40 @@
 variable "aws_region" {
-  type        = string
-  description = "AWS region where resources will be created"
+  type = string
 }
 
 variable "project_name" {
-  type        = string
-  description = "Project name"
+  type = string
 }
 
 variable "environment" {
-  type        = string
-  description = "Environment name"
+  type = string
 }
 
 variable "vpc_cidr" {
-  type        = string
-  description = "Main CIDR block for the VPC"
+  type = string
 }
 
 variable "private_subnet_cidrs" {
-  type        = list(string)
-  description = "CIDR blocks for private subnets"
+  type = list(string)
 }
 
 variable "availability_zones" {
-  type        = list(string)
-  description = "Availability zones for private subnets"
+  type = list(string)
 }
 
 variable "cluster_version" {
-  type        = string
-  description = "Kubernetes version for EKS"
-  default     = "1.30"
+  type    = string
+  default = "1.30"
 }
 
 variable "node_instance_types" {
-  type        = list(string)
-  description = "EC2 instance types for EKS nodes"
-  default     = ["t3.medium"]
+  type    = list(string)
+  default = ["t3.medium"]
 }
 
 variable "node_desired_size" {
-  type        = number
-  default     = 2
+  type    = number
+  default = 2
 }
 
 variable "node_min_size" {
@@ -56,25 +48,26 @@ variable "node_max_size" {
 }
 
 variable "app_name" {
-  type        = string
-  default     = "hello-world"
-  description = "Application name"
+  type    = string
+  default = "hello-world"
 }
 
 variable "app_namespace" {
-  type        = string
-  default     = "hiive"
-  description = "Kubernetes namespace for the app"
+  type    = string
+  default = "hiive"
 }
 
 variable "app_replicas" {
-  type        = number
-  default     = 2
-  description = "Number of app replicas"
+  type    = number
+  default = 2
 }
 
 variable "app_image_tag" {
-  type        = string
-  default     = "latest"
-  description = "Application image tag"
+  type    = string
+  default = "latest"
+}
+
+variable "log_retention_days" {
+  type    = number
+  default = 14
 }
