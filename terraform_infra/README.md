@@ -134,7 +134,33 @@ Creates:
 
 ---
 
-## 4. App Module
+## 4. Workstation Module
+
+Creates:
+
+Private EC2 instance
+IAM instance profile
+SSM-based access
+kubectl, Terraform, Docker, and AWS CLI installation
+
+The workstation is used to securely access the private EKS cluster without exposing SSH or public IP addresses.
+
+Why?
+
+Because the EKS endpoint is private:
+
+Kubernetes API access must come from inside the VPC.
+
+This approach avoids:
+
+Bastion hosts
+Public SSH access
+Port 22 exposure
+Public administration servers
+
+---
+
+## 5. App Module
 
 Deploys:
 
@@ -144,7 +170,7 @@ Deploys:
 
 The application is internal-only by default.
 
-## 5. Observability Module
+## 6. Observability Module
 
 Creates:
 
@@ -156,6 +182,45 @@ Creates:
 * EKS control plane logs
 * High node CPU alarm
 * High node memory alarm
+
+---
+
+# AWS Authentication using IAM Identity Center (AWS SSO)
+
+This project uses AWS IAM Identity Center (AWS SSO) instead of long-lived IAM access keys.
+
+Benefits:
+
+Temporary credentials
+Better security posture
+Centralized authentication
+Reduced credential leakage risk
+Easier credential rotation
+Production-aligned authentication model
+
+Terraform provider example:
+
+provider "aws" {
+  region  = var.aws_region
+  profile = "profile-name"
+}
+
+Login command:
+
+aws sso login --profile-name
+Prerequisites
+
+Install:
+
+Terraform
+AWS CLI
+kubectl
+Docker
+AWS Session Manager Plugin
+
+Verify AWS access:
+
+aws sts get-caller-identity
 
 ---
 
