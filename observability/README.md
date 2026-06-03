@@ -1,8 +1,8 @@
-# Hiive Observability Setup with Datadog
+# Observability Setup with Datadog
 
 ## Overview
 
-This project defines an observability setup for a production-style platform using Datadog, AWS, and Terraform.
+This is close to  production style observability setup with AWS, Datadog and Terraform.
 
 The goal is to monitor application health, infrastructure health, Kubernetes/EKS workloads, and reliability against SLA/SLO targets.
 
@@ -42,7 +42,7 @@ This allows the platform team to monitor:
 
 ## Observability Approach
 
-For Hiive’s platform, I would configure Datadog across four major areas:
+I would configure Datadog for below metrices:
 
 ### 1. Application Performance Monitoring
 
@@ -53,7 +53,6 @@ Datadog APM would be used to track:
 - Throughput
 - Slow endpoints
 - Database query latency
-- Service-to-service dependencies
 
 ### 2. Infrastructure Monitoring
 
@@ -67,29 +66,26 @@ Important metrics include:
 - Load balancer 5xx errors
 - Network errors
 
-### 3. Kubernetes / EKS Monitoring
+### 3. EKS Monitoring
 
-The Datadog Agent would run inside EKS as a DaemonSet using the Datadog Helm chart.
+The Datadog Agent would run inside EKS as a DaemonSet or sidecar containers using the Datadog Helm chart (we should use it in multi environment setup).
 
 It would monitor:
 
 - Pod restarts
 - CrashLoopBackOff
 - Pending pods
-- Deployment availability
-- Node memory pressure
-- Node CPU pressure
-- Container resource usage
+- Resource limits
 
 ### 4. Logs and Traces
 
 Application logs, Kubernetes logs, and infrastructure logs would be shipped to Datadog.
 
-Logs would be correlated with APM traces so that engineers can move from an alert to the exact failing request, log line, pod, or database call.
+Log monitoring which is heart of any troubleshooting when an SRE got stuck, audit logs, or finding root cause for an issue.
 
 ## SLA and SLO Strategy
 
-I would define SLOs for the most customer-impacting services.
+I would define SLOs for the most critical and revenue impacting services.
 
 Example SLOs:
 
@@ -99,7 +95,7 @@ Example SLOs:
 | API latency | p95 under 500ms |
 | API error rate | Less than 1% 5xx |
 | Background jobs | 99% success rate |
-| Kubernetes availability | Critical deployments always available |
+| EKS Availability | Critical service should have at leats 1 pod healthy. |
 
 ## Critical Alerts
 
@@ -109,7 +105,7 @@ The most important alerts would be:
 |---|---|---|
 | High API 5xx rate | Critical | Direct customer impact |
 | API p95 latency above SLO | Critical | Platform is degraded |
-| Critical deployment unavailable | Critical | Service may be down |
+| Critical Service Unavailable | Critical | Service may be down |
 | Pod restart spike | Critical | Possible bad deployment or runtime issue |
 | EKS node saturation | Critical | Can cause cascading pod failures |
 | Database connection saturation | Critical | Can impact the whole platform |
