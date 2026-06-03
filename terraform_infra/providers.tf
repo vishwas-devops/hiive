@@ -1,3 +1,23 @@
+terraform {
+  required_version = ">= 1.5.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.30"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.aws_region
+}
+
 
 data "aws_eks_cluster" "this" {
   name = module.eks.cluster_name
