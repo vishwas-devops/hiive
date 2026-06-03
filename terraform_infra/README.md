@@ -1,4 +1,4 @@
-# Hiive Terraform EKS Assignment
+# Hiive Terraform Assignment
 
 ## Overview
 
