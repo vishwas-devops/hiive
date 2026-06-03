@@ -122,6 +122,8 @@ terraform init
 terraform plan -var="aws_account_id=123456789012"
 terraform apply -var="aws_account_id=123456789012"
 
+```
+
 ## **What I Would Do Differently in Real Production**
 
 For an actual production environment, I would improve this setup and add below configurations:
