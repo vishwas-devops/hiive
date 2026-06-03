@@ -117,3 +117,7 @@ Set Datadog credentials as environment variables:
 ```bash
 export DD_API_KEY="your-api-key"
 export DD_APP_KEY="your-app-key"
+
+terraform init
+terraform plan -var="aws_account_id=123456789012"
+terraform apply -var="aws_account_id=123456789012"
